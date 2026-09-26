@@ -47,7 +47,6 @@ coverage.xml
 *.cover
 *.py,cover
 .hypothesis/
-.pytest_cache/
 
 # Environments
 .env
@@ -164,4 +163,5 @@ Thumbs.db
 
 # Ignore CLAUDE.md as requested
 CLAUDE.md
+.prettierrc
 
