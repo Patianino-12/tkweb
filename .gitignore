@@ -1,0 +1,167 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# pyright
+pyrightconfig.json
+__pyright__
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest
+.pytest_cache/
+.testcache/
+
+# Ruff
+.ruff_cache/
+
+# Bandit
+.bandit
+
+# Sphinx documentation
+docs/_build/
+
+# Mkdocs
+site/
+
+# My scripts
+bin/
+*.ps1
+
+# Logs
+*.log
+log/
+logs/
+
+# Local development
+*.sqlite3
+*.db
+
+# Secrets and keys
+*.pem
+*.key
+*.cert
+*.crt
+*.csr
+
+# Environment variables (beyond .env)
+.env.*
+!.env.example
+!.env.template
+
+# Poetry
+poetry.lock
+.poetry/
+
+# Pipenv
+Pipfile.lock
+.pipenv/
+
+# PDM
+pdm.lock
+.pdm/
+.pdm.toml
+
+# Misc
+.cache
+.coverage
+.idea
+.out
+*.bak
+*.backup
+*.tmp
+*.temp
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.crdownload
+*.part
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.lock
+.DS_Store
+Thumbs.db
+
+# Ignore CLAUDE.md as requested
+CLAUDE.md
+
