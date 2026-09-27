@@ -1,3 +1,18 @@
 [
-  "tests/test_main.py::test_main"
+  "tests/test_main.py::test_main",
+  "tests/test_processor.py::TestCalculateTokenSavings::test_no_savings_when_same",
+  "tests/test_processor.py::TestCalculateTokenSavings::test_token_savings_calculation",
+  "tests/test_processor.py::TestContentProcessor::test_extract_key_sentences",
+  "tests/test_processor.py::TestContentProcessor::test_extract_main_content_hints",
+  "tests/test_processor.py::TestContentProcessor::test_remove_boilerplate",
+  "tests/test_processor.py::TestContentProcessor::test_remove_extra_whitespace",
+  "tests/test_processor.py::TestContentProcessor::test_summarize_aggressively",
+  "tests/test_processor.py::TestProcessForAiConsumption::test_aggressive_processing",
+  "tests/test_processor.py::TestProcessForAiConsumption::test_basic_processing",
+  "tests/test_processor.py::TestProcessForAiConsumption::test_processing_with_max_tokens",
+  "tests/test_scraper.py::TestTokenAwareScraper::test_count_tokens",
+  "tests/test_scraper.py::TestTokenAwareScraper::test_initialization",
+  "tests/test_scraper.py::TestTokenAwareScraper::test_scrape_url_error",
+  "tests/test_scraper.py::TestTokenAwareScraper::test_scrape_url_success",
+  "tests/test_scraper.py::TestTokenAwareScraper::test_scrape_url_with_max_tokens"
 ]
