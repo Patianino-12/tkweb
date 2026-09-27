@@ -17,43 +17,121 @@ When preparing web content for AI models, token efficiency matters. tkweb intell
 pip install tkweb
 ```
 
-## 📖 Usage Examples
+## 📖 Getting Started
+
+Let's walk through a simple example to see how tkweb works:
+
+1. **Install tkweb**:
+   ```bash
+   pip install tkweb
+   ```
+
+2. **Scrape a webpage with token limits**:
+   ```bash
+   # This will scrape the URL and limit the output to ~500 tokens
+   tkweb scrape https://httpbin.org/html --max-tokens 500
+   ```
+
+3. **Save the results to a file**:
+   ```bash
+   tkweb scrape https://httpbin.org/html --max-tokens 300 --output scraped_content.txt
+   ```
+
+4. **Process existing text content**:
+   ```bash
+   echo "Your long text goes here..." | tkweb process --max-tokens 100
+   ```
+
+## 📚 Detailed Usage Examples
 
 ### As a Library
 ```python
 from tkweb import TokenAwareScraper
 
-# Initialize with your target AI model
+# Initialize the scraper with your target AI model
+# This ensures accurate token counting for models like GPT-4, Claude, etc.
 scraper = TokenAwareScraper(model_name="gpt-4")
 
-# Scrape and optimize in one go
+# Scrape and optimize a webpage in one step
+# Parameters:
+#   url: The webpage to scrape
+#   max_tokens: Maximum number of tokens to return (None for no limit)
+#   remove_selectors: CSS selectors of elements to remove (ads, nav, etc.)
 result = scraper.scrape_url(
     'https://example.com/news/article', 
     max_tokens=800,
     remove_selectors=['nav', 'footer', '.sidebar', '.ads']
 )
 
-print(f"✅ Scraped {result['token_count']} tokens (saved {result['token_savings']:.1%})")
-print(result['content'][:200] + "...")
+# The result is a dictionary containing:
+print(f"✅ Successfully scraped and processed!")
+print(f"📊 Original tokens: {result['original_token_count']}")
+print(f"📉 Processed tokens: {result['token_count']}")
+print(f"💰 Token savings: {result['token_savings']:.1%}")
+print(f"📄 Content preview: {result['content'][:150]}...")
 
-# Or process existing text
+# Access the full processed content
+full_content = result['content']
+
+# Get metadata about the scraping process
+metadata = result['metadata']
+print(f"🔗 Final URL: {metadata.get('final_url')}")
+print(f"📈 Status code: {metadata.get('status_code')}")
+
+# Or process existing text content directly
 from tkweb.processor import process_for_ai_consumption
-optimized = process_for_ai_consumption(raw_text, max_tokens=500)
+
+# If you already have text content (from a file, API, etc.)
+raw_text = "Your very long text content that needs to be optimized for AI consumption..."
+optimized_result = process_for_ai_consumption(
+    raw_text, 
+    max_tokens=500,           # Target token limit
+    aggressive=False          # Set to True for maximum compression
+)
+
+print(f"🔧 Optimization complete: {len(raw_text)} → {len(optimized_result['content'])} characters")
 ```
 
 ### Command Line Interface
 ```bash
-# Basic scraping with token limit
+# 🔍 Basic scraping with default settings
+# Uses reasonable defaults for element removal and no token limit
+tkweb scrape https://example.com
+
+# 🎯 Scrape with specific token limit
+# Returns content limited to approximately 500 tokens
 tkweb scrape https://example.com --max-tokens 500
 
-# Save to file with custom output
-tkweb scrape https://example.com --output article.json --format json
+# 💾 Save scraping results to a file
+# --output specifies the file path, --format chooses output format
+tkweb scrape https://example.com \
+    --max-tokens 300 \
+    --output article.txt \
+    --format text
 
-# Process existing content
-cat article.txt | tkweb process --max-tokens 300 --aggressive
+# 📊 Get detailed results in JSON format
+# Includes token counts, savings percentage, and metadata
+tkweb scrape https://example.com \
+    --max-tokens 400 \
+    --output result.json \
+    --format json
 
-# Run the demonstration
+# ⚙️ Process existing text content from a file or pipe
+# Read from file and optimize for AI consumption
+cat long_article.txt | tkweb process --max-tokens 250
+
+# 🚀 Use aggressive mode for maximum compression
+# Ideal when you need to fit content into very tight token limits
+cat documentation.pdf | tkweb process --max-tokens 150 --aggressive
+
+# 🎪 Run the built-in demonstration
+# Shows tkweb in action with example websites
 tkweb demo
+
+# ❓ Get help and see all available options
+tkweb --help
+tkweb scrape --help
+tkweb process --help
 ```
 
 ## 🔧 How It Works
@@ -72,14 +150,15 @@ tkweb employs a 6-stage optimization pipeline:
 Customize behavior to match your needs:
 ```python
 scraper = TokenAwareScraper(
-    model_name="gpt-4",           # Target AI model for counting
-    remove_selectors=[            # Elements to remove
+    model_name="gpt-4",           # Target AI model for counting (gpt-4, gpt-3.5-turbo, claude-2, etc.)
+    remove_selectors=[            # Elements to remove during scraping
         'nav', 'footer', '.sidebar', 
-        '.ads', '.comments', '.related'
+        '.ads', '.comments', '.related', '.menu'
     ]
 )
 
 # Process with aggressive optimization for extreme cases
+# aggressive=True uses more aggressive summarization techniques
 result = scraper.scrape_url(url, max_tokens=300, aggressive=True)
 ```
 
