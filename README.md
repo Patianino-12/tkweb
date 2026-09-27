@@ -121,11 +121,19 @@ pip install .
 
 #### 🐧 Linux (Ubuntu/Debian)
 ```bash
-# Install system dependencies
-sudo apt update && sudo apt install -y python3-pip python3-venv
+# Option 1: Recommended - Create a virtual environment
+python3 -m venv tkweb-env
+source tkweb-env/bin/activate
+pip install tkweb
 
-# Install tkweb
-pip3 install tkweb
+# Option 2: Using pipx (if installed)
+# pipx install tkweb
+
+# Option 3: System-wide installation (NOT RECOMMENDED for production)
+# pip install --break-system-packages tkweb  # Use at your own risk!
+
+# Install system dependencies if needed
+sudo apt update && sudo apt install -y python3-venv python3-pip
 ```
 
 #### 🍎 macOS
@@ -137,6 +145,11 @@ pip3 install tkweb
 # Or using the official Python installer
 # Download from https://python.org, then:
 pip3 install tkweb
+
+# Or create a virtual environment (recommended)
+python3 -m venv tkweb-env
+source tkweb-env/bin/activate
+pip install tkweb
 ```
 
 #### 💻 Windows
@@ -148,6 +161,11 @@ pip install tkweb
 # Or using the Microsoft Store Python app
 # Install Python from Microsoft Store, then:
 python -m pip install tkweb
+
+# Or create a virtual environment (recommended)
+python -m venv tkweb-env
+tkweb-env\Scripts\activate
+pip install tkweb
 ```
 
 ### Verifying Installation
