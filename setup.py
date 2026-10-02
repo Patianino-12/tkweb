@@ -17,7 +17,7 @@ def read_requirements():
 
 setup(
     name="tkweb",
-    version="0.1.0",
+    version="0.1.1",
     author="Damiano Iannone",
     author_email="damiano@example.com",
     description="Token-aware web scraper for efficient AI content consumption",
