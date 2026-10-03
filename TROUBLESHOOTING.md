@@ -34,7 +34,8 @@ If you're getting "command not found" when trying to run `tkweb --version`, here
 First, check if tkweb is actually installed:
 
 ```bash
-pip show tkweb
+source .venv/bin/activate
+python -m pip show tkweb
 ```
 
 If you see output like:
@@ -85,18 +86,19 @@ Instead of `tkweb`, try:
 python -m tkweb --version
 
 # Or if installed in development mode
-python -c "from tkweb.cli import main; main()" --version
+python -c "import sys; from tkweb.cli import main; sys.argv=['tkweb', '--version']; main()"
 
 # Find the exact script location
-pip show tkweb | grep Location
+python -m pip show tkweb | grep Location
 # Then look for tkweb script in that directory's bin/ or Scripts/ folder
 ```
 
 ### 4. Reinstall with Explicit PATH
 
 ```bash
-# Force reinstall and see where it installs
-pip install --force-reinstall tkweb --verbose
+# Activate the environment, force reinstall, and see where it installs
+source .venv/bin/activate
+python -m pip install --force-reinstall tkweb --verbose
 ```
 
 Look for output like:
@@ -114,8 +116,12 @@ If you cloned the repository and installed from source:
 # Make sure you're in the project directory
 cd /path/to/tkweb
 
+# Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
 # Install in development mode (recommended for developers)
-pip install -e .
+python -m pip install -e .
 
 # This creates a tkweb executable that points to your current code
 ```
@@ -132,9 +138,10 @@ If this fails, there may be an installation issue with the package itself.
 
 ## 💡 Quick Test
 
-Try running the demonstration directly:
+Activate the environment and try running the demonstration directly:
 
 ```bash
+source .venv/bin/activate
 python -m tkweb demo
 ```
 

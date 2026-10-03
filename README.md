@@ -12,9 +12,14 @@
 
 When preparing web content for AI models, token efficiency matters. tkweb intelligently scrapes and processes web pages to minimize token usage while maximizing information retention - inspired by the RTK (Rust Token Killer) concept.
 
-### 🚀 One-Line Installation
+### 🚀 Installation
+
+This is the safe installation process for Debian, Ubuntu, and other systems
+that implement PEP 668:
 ```bash
-pip install tkweb
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install tkweb
 ```
 
 ## 📖 Getting Started
@@ -23,7 +28,9 @@ Let's walk through a simple example to see how tkweb works:
 
 1. **Install tkweb**:
    ```bash
-   pip install tkweb
+   python3 -m venv .venv
+   source .venv/bin/activate
+   python -m pip install tkweb
    ```
 
 2. **Scrape a webpage with token limits**:
@@ -164,7 +171,7 @@ result = scraper.scrape_url(url, max_tokens=300, aggressive=True)
 
 ## 📦 Installation
 
-### Using pip (Recommended)
+### Using a virtual environment (Recommended)
 ```bash
 # Debian, Ubuntu, and other PEP 668-compliant systems require a virtual environment
 python3 -m venv .venv
@@ -180,11 +187,12 @@ python -m pip install -e .
 ```
 
 If you only need the `tkweb` command and do not need to import the package from
-Python, `pipx install tkweb` is another safe option. On Debian/Ubuntu, install
-the virtual-environment support first if it is missing:
+Python, `pipx` is another safe option:
 
 ```bash
-sudo apt install python3-venv python3-full
+sudo apt install pipx
+pipx install tkweb
+pipx ensurepath
 ```
 
 ### Alternative Installation Methods
@@ -196,7 +204,9 @@ conda install -c conda-forge tkweb
 
 #### Using pipx (for isolated CLI tools)
 ```bash
+sudo apt install pipx
 pipx install tkweb
+pipx ensurepath
 ```
 
 #### From source (all platforms)
@@ -205,7 +215,9 @@ pipx install tkweb
 curl -L https://github.com/Patianino-12/tkweb/archive/refs/heads/main.zip -o tkweb.zip
 unzip tkweb.zip
 cd tkweb-main
-pip install .
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install .
 ```
 
 ### OS-Specific Instructions
@@ -215,54 +227,36 @@ pip install .
 # Option 1: Recommended - Create a virtual environment
 python3 -m venv tkweb-env
 source tkweb-env/bin/activate
-pip install tkweb
+python -m pip install tkweb
 
 # Option 2: Using pipx (if installed)
-# pipx install tkweb
+pipx install tkweb
 
-# Option 3: System-wide installation (NOT RECOMMENDED for production)
-# pip install --break-system-packages tkweb  # Use at your own risk!
-
-# Install system dependencies if needed
+# Install the virtual-environment support if needed
 sudo apt update && sudo apt install -y python3-venv python3-pip
 ```
 
 #### 🍎 macOS
 ```bash
-# Using Homebrew (if you have it)
-brew install python  # Ensures you have pip3
-pip3 install tkweb
-
-# Or using the official Python installer
-# Download from https://python.org, then:
-pip3 install tkweb
-
-# Or create a virtual environment (recommended)
+# Create a virtual environment (recommended)
 python3 -m venv tkweb-env
 source tkweb-env/bin/activate
-pip install tkweb
+python -m pip install tkweb
 ```
 
 #### 💻 Windows
 ```powershell
-# Using PowerShell
-python -m pip install --upgrade pip
-pip install tkweb
-
-# Or using the Microsoft Store Python app
-# Install Python from Microsoft Store, then:
-python -m pip install tkweb
-
-# Or create a virtual environment (recommended)
+# Create a virtual environment (recommended)
 python -m venv tkweb-env
 tkweb-env\Scripts\activate
-pip install tkweb
+python -m pip install tkweb
 ```
 
 ### Verifying Installation
 ```bash
+source .venv/bin/activate
 tkweb --version
-# Should show: tkweb 0.1.0 or higher
+# Should show: tkweb 0.1.1
 ```
 
 ## 📋 Requirements
@@ -319,46 +313,29 @@ note: If you believe this is a mistake, please contact your Python installation 
 hint: See PEP 668 for the detailed specification.
 ```
 
-Follow these steps to resolve it without installing additional packages beyond what's already provided by the system:
+Follow these steps to resolve it:
 
-1. **Remove any existing virtual environment** (optional but recommended):
+1. **Create a virtual environment**:
    ```bash
-   rm -rf .venv
+   python3 -m venv .venv
    ```
 
-2. **Create a virtual environment that includes system site packages**:
+2. **Activate the virtual environment**:
    ```bash
-   python3 -m venv .venv --system-site-packages
+   source .venv/bin/activate
    ```
 
-3. **Verify the required packages are accessible** (they are already installed via `apt`):
+3. **Install and verify tkweb**:
    ```bash
-   .venv/bin/python -c "import requests; import bs4; import lxml; import html2text; import tiktoken; print('All packages available')"
-   ```
-   Output: `All packages available`
-
-4. **Run your code using the virtual environment's Python**:
-   - For general scripts:
-     ```bash
-     .venv/bin/python your_script.py
-     ```
-   - If your code lives in `src/` and you need to import your local module (e.g., `tkweb`), set `PYTHONPATH`:
-     ```bash
-     PYTHONPATH=src .venv/bin/python your_script.py
-     ```
-
-   Or, to run the example script (note: the example requires internet access which may not be available in this sandbox):
-   ```bash
-   PYTHONPATH=src .venv/bin/python example.py
+   python -m pip install tkweb
+   tkweb --version
    ```
 
-**Why this works**: The system already provides the exact packages listed in your `requirements.txt` via Debian's `apt`:
-- `python3-requests` (version 2.32.3) → satisfies `requests>=2.25.1`
-- `python3-bs4` (version 4.13.4) → satisfies `beautifulsoup4>=4.9.0`
-- `python3-lxml` (version 5.4.0) → satisfies `lxml>=4.6.0`
-- `python3-html2text` (version 2025.4.15) → satisfies `html2text>=2020.1.16`
-- `python3-tiktoken` (version 0.9.0) → satisfies `tktoken>=0.4.0`
+If your system does not include the `venv` module:
 
-By creating a virtual environment with `--system-site-packages`, you gain access to these system-installed packages without needing to install anything via `pip`, thus avoiding the externally-managed-environment error.
+```bash
+sudo apt install python3-venv python3-full
+```
 
-> **Note**: If you need to install additional packages not available via `apt`, you would need network access (or a local package mirror), which may not be available in this environment.
+Do not use `pip install --break-system-packages` unless you intentionally accept
+the risk of replacing packages managed by the operating system.

@@ -5,6 +5,7 @@ Command-line interface for tkweb - Token-aware Web Scraper.
 import argparse
 import sys
 import json
+from . import __version__
 from .scraper import TokenAwareScraper, quick_scrape
 from .processor import process_for_ai_consumption
 from .utils import calculate_token_savings, format_content_for_ai
@@ -18,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Token-aware web scraper - Extract web content optimized for AI consumption"
     )
+    parser.add_argument('--version', action='version', version=f'tkweb {__version__}')
 
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
