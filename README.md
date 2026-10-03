@@ -280,3 +280,73 @@ This project draws inspiration from the [RTK (Rust Token Killer)](https://github
 ---
 
 *Made with ❤️ for efficient AI development. Scrape smarter!*
+
+## 🛠️ Fixing the 'externally-managed-environment' error
+
+If you encounter the error:
+```
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+    
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+    
+    See /usr/share/doc/python3.13/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+```
+
+Follow these steps to resolve it without installing additional packages beyond what's already provided by the system:
+
+1. **Remove any existing virtual environment** (optional but recommended):
+   ```bash
+   rm -rf .venv
+   ```
+
+2. **Create a virtual environment that includes system site packages**:
+   ```bash
+   python3 -m venv .venv --system-site-packages
+   ```
+
+3. **Verify the required packages are accessible** (they are already installed via `apt`):
+   ```bash
+   .venv/bin/python -c "import requests; import bs4; import lxml; import html2text; import tiktoken; print('All packages available')"
+   ```
+   Output: `All packages available`
+
+4. **Run your code using the virtual environment's Python**:
+   - For general scripts:
+     ```bash
+     .venv/bin/python your_script.py
+     ```
+   - If your code lives in `src/` and you need to import your local module (e.g., `tkweb`), set `PYTHONPATH`:
+     ```bash
+     PYTHONPATH=src .venv/bin/python your_script.py
+     ```
+
+   Or, to run the example script (note: the example requires internet access which may not be available in this sandbox):
+   ```bash
+   PYTHONPATH=src .venv/bin/python example.py
+   ```
+
+**Why this works**: The system already provides the exact packages listed in your `requirements.txt` via Debian's `apt`:
+- `python3-requests` (version 2.32.3) → satisfies `requests>=2.25.1`
+- `python3-bs4` (version 4.13.4) → satisfies `beautifulsoup4>=4.9.0`
+- `python3-lxml` (version 5.4.0) → satisfies `lxml>=4.6.0`
+- `python3-html2text` (version 2025.4.15) → satisfies `html2text>=2020.1.16`
+- `python3-tiktoken` (version 0.9.0) → satisfies `tktoken>=0.4.0`
+
+By creating a virtual environment with `--system-site-packages`, you gain access to these system-installed packages without needing to install anything via `pip`, thus avoiding the externally-managed-environment error.
+
+> **Note**: If you need to install additional packages not available via `apt`, you would need network access (or a local package mirror), which may not be available in this environment.
