@@ -3,4 +3,3 @@ beautifulsoup4>=4.9.0
 lxml>=4.6.0
 html2text>=2020.1.16
 tiktoken>=0.4.0
-rtk-py>=0.1.0  # Assuming this exists or we'll create a mock

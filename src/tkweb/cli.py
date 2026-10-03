@@ -40,7 +40,8 @@ def main():
     process_parser.add_argument('--aggressive', action='store_true', help='Use aggressive summarization')
     process_parser.add_argument('--output', '-o', help='Output file (default: stdout)')
     process_parser.add_argument('--format', choices=['text', 'json'], default='text',
-                               help='Output format')
+                              help='Output format')
+    process_parser.add_argument('--verbose', '-v', action='store_true', help='Verbose logging')
 
     # Demo command
     demo_parser = subparsers.add_parser('demo', help='Run a demonstration')

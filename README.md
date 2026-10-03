@@ -166,13 +166,25 @@ result = scraper.scrape_url(url, max_tokens=300, aggressive=True)
 
 ### Using pip (Recommended)
 ```bash
-# Install from PyPI
-pip install tkweb
+# Debian, Ubuntu, and other PEP 668-compliant systems require a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install tkweb
 
 # Or install in development mode
 git clone https://github.com/Patianino-12/tkweb.git
 cd tkweb
-pip install -e .
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
+
+If you only need the `tkweb` command and do not need to import the package from
+Python, `pipx install tkweb` is another safe option. On Debian/Ubuntu, install
+the virtual-environment support first if it is missing:
+
+```bash
+sudo apt install python3-venv python3-full
 ```
 
 ### Alternative Installation Methods

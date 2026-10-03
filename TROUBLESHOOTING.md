@@ -1,5 +1,32 @@
 # Troubleshooting tkweb Installation
 
+## 🚫 `error: externally-managed-environment`
+
+This error comes from Debian, Ubuntu, and other Linux distributions that comply
+with [PEP 668](https://peps.python.org/pep-0668/). They deliberately prevent
+`pip` from replacing packages managed by the operating system.
+
+Use a virtual environment instead:
+
+```bash
+cd /path/to/tkweb
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+tkweb --help
+```
+
+If `python3 -m venv` fails, install the required system package first:
+
+```bash
+sudo apt install python3-venv python3-full
+```
+
+For an isolated command-line installation without manually activating an
+environment, use `pipx install tkweb`. Do not use
+`pip install --break-system-packages` unless you understand the risk of
+breaking the operating system's Python packages.
+
 If you're getting "command not found" when trying to run `tkweb --version`, here are the most common causes and solutions:
 
 ## 🔍 Verify Installation
