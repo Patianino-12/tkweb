@@ -24,6 +24,19 @@ python -m pip install tkweb
 
 ## 📖 Getting Started
 
+The CLI examples below assume that the virtual environment containing `tkweb`
+is active. If you have not activated it, run:
+
+```bash
+source .venv/bin/activate
+```
+
+You can also invoke the executable directly without activating the environment:
+
+```bash
+.venv/bin/tkweb --help
+```
+
 Let's walk through a simple example to see how tkweb works:
 
 1. **Install tkweb**:
@@ -100,6 +113,13 @@ print(f"🔧 Optimization complete: {len(raw_text)} → {len(optimized_result['c
 ```
 
 ### Command Line Interface
+
+Activate the environment first, or replace `tkweb` with `.venv/bin/tkweb`:
+
+```bash
+source .venv/bin/activate
+```
+
 ```bash
 # 🔍 Basic scraping with default settings
 # Uses reasonable defaults for element removal and no token limit
